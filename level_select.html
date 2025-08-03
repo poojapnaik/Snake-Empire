@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake Empire - Level Selection</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@400;700&family=Cinzel:wght@400;500;600;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Cinzel', serif;
+        }
+        .level-card {
+            transition: all 0.3s ease;
+        }
+        .level-card:hover {
+            transform: translateY(-5px);
+        }
+        .locked {
+            filter: grayscale(100%) brightness(0.5);
+            pointer-events: none;
+        }
+        .unlocked {
+            filter: none;
+            cursor: pointer;
+        }
+        .level-popup {
+            animation: popIn 0.5s ease-out;
+        }
+        @keyframes popIn {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white min-h-screen">
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 opacity-10">
+        <div class="absolute inset-0" style="background-image: radial-gradient(circle at 25% 25%, #10b981 1px, transparent 1px), radial-gradient(circle at 75% 75%, #10b981 1px, transparent 1px); background-size: 50px 50px;"></div>
+    </div>
+
+    <div class="relative z-10 min-h-screen p-4">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-6xl font-bold mb-4" style="font-family: 'UnifrakturCook', cursive; font-weight: 700; color: #FFD700; text-shadow: 3px 3px 0px #DC143C, 6px 6px 0px #228B22, 9px 9px 0px #000000;">
+                🐍 Snake Empire
+            </h1>
+            <p class="text-xl mb-6" style="font-family: 'Cinzel', serif; font-weight: 500; background: linear-gradient(45deg, #FFD700, #DC143C); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+                Choose Your Level
+            </p>
+            
+            <!-- Diamond Rewards Display -->
+            <div class="bg-gradient-to-r from-blue-900 to-purple-900 rounded-2xl p-4 border-2 border-blue-400 shadow-2xl max-w-md mx-auto">
+                <div class="flex items-center justify-center space-x-3">
+                    <div class="text-4xl animate-pulse">💎</div>
+                    <div class="text-center">
+                        <p class="text-lg font-bold" style="font-family: 'UnifrakturCook', cursive; color: #FFD700;">DIAMONDS</p>
+                        <p class="text-2xl font-bold" id="diamondCount" style="font-family: 'Press Start 2P', cursive; color: #00FFFF; text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);">0</p>
+                    </div>
+                    <div class="text-4xl animate-pulse" style="animation-delay: 0.5s;">💎</div>
+                </div>
+                <p class="text-xs mt-2 text-blue-200" style="font-family: 'Cinzel', serif;">
+                    Complete levels to earn diamonds! Each level doubles the reward.
+                </p>
+            </div>
+        </div>
+
+        <!-- Level Grid -->
+        <div class="max-w-6xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Level 1: Baby Snake -->
+                <div class="level-card unlocked bg-gradient-to-br from-green-600 to-emerald-700 rounded-2xl p-6 border-2 border-green-400 shadow-2xl" onclick="selectLevel(1)">
+                    <div class="text-center">
+                        <div class="text-6xl mb-4">🥚</div>
+                        <h3 class="text-2xl font-bold mb-2" style="font-family: 'UnifrakturCook', cursive; color: #FFD700;">Baby Snake</h3>
+                        <p class="text-sm mb-4" style="font-family: 'Cinzel', serif;">Level 1</p>
+                        <div class="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-bold">
+                            UNLOCKED
+                        </div>
+                        <p class="text-xs mt-2 text-green-200">Target: 50 points</p>
+                    </div>
+                </div>
+
+                <!-- Level 2: Viper -->
+                <div class="level-card locked bg-gradient-to-br from-gray-600 to-gray-700 rounded-2xl p-6 border-2 border-gray-500 shadow-2xl" onclick="selectLevel(2)">
+                    <div class="text-center">
+                        <div class="text-6xl mb-4">🐍</div>
+                        <h3 class="text-2xl font-bold mb-2" style="font-family: 'UnifrakturCook', cursive; color: #FFD700;">Viper</h3>
+                        <p class="text-sm mb-4" style="font-family: 'Cinzel', serif;">Level 2</p>
+                        <div class="bg-gray-500 text-white px-3 py-1 rounded-full text-sm font-bold">
+                            🔒 LOCKED
+                        </div>
+                        <p class="text-xs mt-2 text-gray-300">Target: 150 points</p>
+                    </div>
+                </div>
+
+                <!-- Level 3: Python -->
+                <div class="level-card locked bg-gradient-to-br from-gray-600 to-gray-700 rounded-2xl p-6 border-2 border-gray-500 shadow-2xl" onclick="selectLevel(3)">
+                    <div class="text-center">
+                        <div class="text-6xl mb-4">🐉</div>
+                        <h3 class="text-2xl font-bold mb-2" style="font-family: 'UnifrakturCook', cursive; color: #FFD700;">Python</h3>
+                        <p class="text-sm mb-4" style="font-family: 'Cinzel', serif;">Level 3</p>
+                        <div class="bg-gray-500 text-white px-3 py-1 rounded-full text-sm font-bold">
+                            🔒 LOCKED
+                        </div>
+                        <p class="text-xs mt-2 text-gray-300">Target: 250 points</p>
+                    </div>
+                </div>
+
+                <!-- Level 4: Boa -->
+                <div class="level-card locked bg-gradient-to-br from-gray-600 to-gray-700 rounded-2xl p-6 border-2 border-gray-500 shadow-2xl" onclick="selectLevel(4)">
+                    <div class="text-center">
+                        <div class="text-6xl mb-4">🦕</div>
+                        <h3 class="text-2xl font-bold mb-2" style="font-family: 'UnifrakturCook', cursive; color: #FFD700;">Boa</h3>
+                        <p class="text-sm mb-4" style="font-family: 'Cinzel', serif;">Level 4</p>
+                        <div class="bg-gray-500 text-white px-3 py-1 rounded-full text-sm font-bold">
+                            🔒 LOCKED
+                        </div>
+                        <p class="text-xs mt-2 text-gray-300">Target: 500 points</p>
+                    </div>
+                </div>
+
+                <!-- Level 5: Anaconda -->
+                <div class="level-card locked bg-gradient-to-br from-gray-600 to-gray-700 rounded-2xl p-6 border-2 border-gray-500 shadow-2xl" onclick="selectLevel(5)">
+                    <div class="text-center">
+                        <div class="text-6xl mb-4">🐲</div>
+                        <h3 class="text-2xl font-bold mb-2" style="font-family: 'UnifrakturCook', cursive; color: #FFD700;">Anaconda</h3>
+                        <p class="text-sm mb-4" style="font-family: 'Cinzel', serif;">Level 5</p>
+                        <div class="bg-gray-500 text-white px-3 py-1 rounded-full text-sm font-bold">
+                            🔒 LOCKED
+                        </div>
+                        <p class="text-xs mt-2 text-gray-300">Target: 800 points</p>
+                    </div>
+                </div>
+
+                <!-- Level 6: Cobra -->
+                <div class="level-card locked bg-gradient-to-br from-gray-600 to-gray-700 rounded-2xl p-6 border-2 border-gray-500 shadow-2xl" onclick="selectLevel(6)">
+                    <div class="text-center">
+                        <div class="text-6xl mb-4">👑</div>
+                        <h3 class="text-2xl font-bold mb-2" style="font-family: 'UnifrakturCook', cursive; color: #FFD700;">Cobra</h3>
+                        <p class="text-sm mb-4" style="font-family: 'Cinzel', serif;">Level 6</p>
+                        <div class="bg-gray-500 text-white px-3 py-1 rounded-full text-sm font-bold">
+                            🔒 LOCKED
+                        </div>
+                        <p class="text-xs mt-2 text-gray-300">Target: 1200 points</p>
+                    </div>
+                </div>
+
+                <!-- Level 7: Mamba -->
+                <div class="level-card locked bg-gradient-to-br from-gray-600 to-gray-700 rounded-2xl p-6 border-2 border-gray-500 shadow-2xl" onclick="selectLevel(7)">
+                    <div class="text-center">
+                        <div class="text-6xl mb-4">⚡</div>
+                        <h3 class="text-2xl font-bold mb-2" style="font-family: 'UnifrakturCook', cursive; color: #FFD700;">Mamba</h3>
+                        <p class="text-sm mb-4" style="font-family: 'Cinzel', serif;">Level 7</p>
+                        <div class="bg-gray-500 text-white px-3 py-1 rounded-full text-sm font-bold">
+                            🔒 LOCKED
+                        </div>
+                        <p class="text-xs mt-2 text-gray-300">Target: 1800 points</p>
+                    </div>
+                </div>
+
+                <!-- Level 8: Titan -->
+                <div class="level-card locked bg-gradient-to-br from-gray-600 to-gray-700 rounded-2xl p-6 border-2 border-gray-500 shadow-2xl" onclick="selectLevel(8)">
+                    <div class="text-center">
+                        <div class="text-6xl mb-4">🔥</div>
+                        <h3 class="text-2xl font-bold mb-2" style="font-family: 'UnifrakturCook', cursive; color: #FFD700;">Titan</h3>
+                        <p class="text-sm mb-4" style="font-family: 'Cinzel', serif;">Level 8</p>
+                        <div class="bg-gray-500 text-white px-3 py-1 rounded-full text-sm font-bold">
+                            🔒 LOCKED
+                        </div>
+                        <p class="text-xs mt-2 text-gray-300">Target: 2500 points</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Back to Home Button -->
+        <div class="text-center mt-12">
+            <a href="index.html" class="inline-flex items-center bg-gradient-to-r from-green-600 via-emerald-600 to-green-700 hover:from-green-500 hover:via-emerald-500 hover:to-green-600 text-white font-bold py-3 px-6 rounded-xl transition-all duration-300 shadow-xl transform hover:scale-110 text-lg border-2 border-green-400 hover:border-green-300" style="font-family: 'Press Start 2P', cursive; font-weight: 400; color: #FFD700; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);">
+                <span class="mr-3 text-xl">🏠</span>
+                <span>BACK TO HOME</span>
+                <span class="ml-3 text-xl">🏠</span>
+            </a>
+        </div>
+
+        <!-- Level Selection Popup -->
+        <div id="levelPopup" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 hidden">
+            <div class="bg-gradient-to-br from-green-800 to-emerald-900 rounded-2xl p-8 border-4 border-green-400 shadow-2xl level-popup max-w-md mx-4">
+                <div class="text-center">
+                    <div id="popupEmoji" class="text-8xl mb-6">🥚</div>
+                    <h2 id="popupTitle" class="text-3xl font-bold mb-4" style="font-family: 'UnifrakturCook', cursive; color: #FFD700;">Baby Snake</h2>
+                    <p id="popupDescription" class="text-lg mb-6" style="font-family: 'Cinzel', serif; color: #E5E7EB;">
+                        Start your journey as a tiny hatchling. Grow stronger with each meal!
+                    </p>
+                    <div class="flex space-x-4">
+                        <button onclick="closePopup()" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-6 rounded-xl transition-all duration-300">
+                            Cancel
+                        </button>
+                        <button id="startLevelBtn" onclick="startLevel()" class="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold py-3 px-8 rounded-xl transition-all duration-300 transform hover:scale-105">
+                            🚀 START LEVEL
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let selectedLevel = 1;
+        let unlockedLevels = 1; // Track unlocked levels
+        let completedLevels = []; // Track completed levels
+        let diamonds = 0; // Track diamond rewards
+        
+        const levelData = {
+            1: {
+                emoji: '🥚',
+                name: 'Baby Snake',
+                description: 'Start your journey as a tiny hatchling. Grow stronger with each meal!',
+                target: 50
+            },
+            2: {
+                emoji: '🐍',
+                name: 'Viper',
+                description: 'A swift and deadly predator. Your speed increases significantly!',
+                target: 150
+            },
+            3: {
+                emoji: '🐉',
+                name: 'Python',
+                description: 'The mighty constrictor. You\'re becoming a formidable force!',
+                target: 250
+            },
+            4: {
+                emoji: '🦕',
+                name: 'Boa',
+                description: 'Ancient and powerful. Your size commands respect!',
+                target: 500
+            },
+            5: {
+                emoji: '🐲',
+                name: 'Anaconda',
+                description: 'The legendary giant. You\'re nearly unstoppable!',
+                target: 800
+            },
+            6: {
+                emoji: '👑',
+                name: 'Cobra',
+                description: 'The royal serpent. Your majesty is unmatched!',
+                target: 1200
+            },
+            7: {
+                emoji: '⚡',
+                name: 'Mamba',
+                description: 'Lightning-fast and deadly. You\'re the ultimate predator!',
+                target: 1800
+            },
+            8: {
+                emoji: '🔥',
+                name: 'Titan',
+                description: 'The legendary titan. You\'ve reached the pinnacle of power!',
+                target: 2500
+            }
+        };
+
+        // Load progress and update level display
+        function loadProgress() {
+            const savedProgress = localStorage.getItem('snakeProgress');
+            console.log('📂 Loading progress from localStorage:', savedProgress);
+            
+            if (savedProgress) {
+                const progress = JSON.parse(savedProgress);
+                unlockedLevels = progress.highestLevel || 1;
+                completedLevels = progress.completedLevels || [];
+                diamonds = progress.diamonds || 0;
+                console.log(`📊 Progress loaded: Level ${unlockedLevels}, Completed: ${completedLevels}, Diamonds: ${diamonds}`);
+            } else {
+                console.log('📂 No saved progress found, starting fresh');
+            }
+            updateLevelDisplay();
+            updateDiamondDisplay();
+        }
+        
+        // Update diamond display
+        function updateDiamondDisplay() {
+            const diamondElement = document.getElementById('diamondCount');
+            if (diamondElement) {
+                // Read directly from localStorage to ensure we have the latest value
+                const savedProgress = localStorage.getItem('snakeProgress');
+                let currentDiamonds = 0;
+                if (savedProgress) {
+                    const progress = JSON.parse(savedProgress);
+                    currentDiamonds = progress.diamonds || 0;
+                }
+                diamondElement.textContent = currentDiamonds;
+                diamonds = currentDiamonds; // Update global variable too
+                console.log(`💎 Diamond display updated: ${currentDiamonds} diamonds`);
+            }
+        }
+
+        // Update the visual display of levels
+        function updateLevelDisplay() {
+            const levelCards = document.querySelectorAll('.level-card');
+            
+            levelCards.forEach((card, index) => {
+                const levelNumber = index + 1;
+                const isUnlocked = levelNumber <= unlockedLevels;
+                const isCompleted = completedLevels.includes(levelNumber); // Check if level is in completed list
+                
+                if (isUnlocked) {
+                    // Unlock the level
+                    card.classList.remove('locked');
+                    card.classList.add('unlocked');
+                    card.style.filter = 'none';
+                    card.style.pointerEvents = 'auto';
+                    
+                    // Update status text
+                    const statusElement = card.querySelector('.bg-gray-500, .bg-green-500, .bg-blue-500');
+                    if (statusElement) {
+                        if (isCompleted) {
+                            // Show as completed but still playable
+                            statusElement.textContent = '✅ COMPLETED';
+                            statusElement.className = 'bg-blue-500 text-white px-3 py-1 rounded-full text-sm font-bold';
+                        } else {
+                            // Show as unlocked (current level)
+                            statusElement.textContent = '🎯 UNLOCKED';
+                            statusElement.className = 'bg-green-500 text-white px-3 py-1 rounded-full text-sm font-bold';
+                        }
+                    }
+                } else {
+                    // Keep level locked
+                    card.classList.remove('unlocked');
+                    card.classList.add('locked');
+                    card.style.filter = 'grayscale(100%) brightness(0.5)';
+                    card.style.pointerEvents = 'none';
+                    
+                    // Update status text
+                    const statusElement = card.querySelector('.bg-gray-500, .bg-green-500, .bg-blue-500');
+                    if (statusElement) {
+                        statusElement.textContent = '🔒 LOCKED';
+                        statusElement.className = 'bg-gray-500 text-white px-3 py-1 rounded-full text-sm font-bold';
+                    }
+                }
+            });
+        }
+
+        function selectLevel(level) {
+            if (level <= unlockedLevels) { // Check if level is unlocked
+                selectedLevel = level;
+                showLevelPopup(level);
+            }
+        }
+
+        function showLevelPopup(level) {
+            const data = levelData[level];
+            const diamondsEarned = Math.pow(2, level - 1); // Calculate diamonds for this level
+            
+            document.getElementById('popupEmoji').textContent = data.emoji;
+            document.getElementById('popupTitle').textContent = data.name;
+            document.getElementById('popupDescription').textContent = data.description;
+            
+            // Add diamond reward info to description
+            const descriptionElement = document.getElementById('popupDescription');
+            if (descriptionElement) {
+                descriptionElement.innerHTML = `${data.description}<br><br><span style="color: #00FFFF; font-weight: bold;">💎 Reward: ${diamondsEarned} diamonds</span>`;
+            }
+            
+            document.getElementById('levelPopup').classList.remove('hidden');
+        }
+
+        function closePopup() {
+            document.getElementById('levelPopup').classList.add('hidden');
+        }
+
+        function startLevel() {
+            // Store the selected level in localStorage
+            localStorage.setItem('selectedLevel', selectedLevel);
+            // Redirect to the game
+            window.location.href = 'snake_game.html';
+        }
+
+        // Close popup when clicking outside
+        document.getElementById('levelPopup').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closePopup();
+            }
+        });
+
+        // Load progress when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            loadProgress();
+        });
+        
+        // Also update when page becomes visible (when returning from game)
+        document.addEventListener('visibilitychange', function() {
+            if (!document.hidden) {
+                loadProgress(); // Reload progress when page becomes visible
+            }
+        });
+        
+        // Update diamonds every second to ensure they stay current
+        setInterval(function() {
+            updateDiamondDisplay();
+        }, 1000);
+        
+        // Debug functions for level select page
+        window.checkProgress = function() {
+            const savedProgress = localStorage.getItem('snakeProgress');
+            console.log('📂 Current localStorage data:', savedProgress);
+            if (savedProgress) {
+                const progress = JSON.parse(savedProgress);
+                console.log('📊 Parsed progress:', progress);
+            }
+        };
+        
+        window.clearAllProgress = function() {
+            localStorage.removeItem('snakeProgress');
+            localStorage.removeItem('selectedLevel');
+            updateDiamondDisplay();
+            console.log('💎 All progress cleared, starting fresh');
+        };
+        
+        window.resetDiamonds = function() {
+            const savedProgress = localStorage.getItem('snakeProgress');
+            if (savedProgress) {
+                const progress = JSON.parse(savedProgress);
+                progress.diamonds = 0;
+                localStorage.setItem('snakeProgress', JSON.stringify(progress));
+                updateDiamondDisplay();
+                console.log('💎 Diamonds reset to 0');
+            }
+        };
+    </script>
+</body>
+</html> 
